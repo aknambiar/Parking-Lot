@@ -106,15 +106,15 @@ class ParkingLot {
 
     updateRecentCars() {
         const listHead = document.querySelector('#recent-list')
-        listHead.removeChild(document.querySelector('.list-group-horizontal'));
+        listHead.removeChild(document.querySelector('.list-group-horizontal-lg'));
         const list = document.createElement('ul');
-        list.classList.add("list-group","list-group-horizontal");
+        list.classList.add("list-group","list-group-horizontal-lg");
 
         for (var i = this.recent.length -1; i >= 0; i--) {
             if (this.recent[i] != undefined){
 
                 const listItem = document.createElement('li');
-                listItem.classList.add("list-group-item","col-3","border","border-dark","border-opacity-25","rounded-pill","border-2","mx-4");
+                listItem.classList.add("list-group-item","col-10","col-lg-3","border","border-dark","border-opacity-25","rounded-pill","border-2","mx-4","my-2");
                 const listText = document.createElement('span');
 
                 listText.textContent = `${this.lots[this.recent[i]]} parked at lot ${this.recent[i]}`;
