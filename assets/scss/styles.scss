@@ -1,0 +1,20 @@
+@import "../bootstrap/scss/bootstrap";
+
+// *:hover { 
+//   outline:1px blue solid;
+// } 
+
+body {
+  background: url(../images/background.webp);
+  // background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.container {
+  margin-top: 6%;
+}
+
+#listcars .list-group {
+  height: 124px;
+  overflow:scroll;
+}
