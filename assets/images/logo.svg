@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="160.655 140.807 33.818 37.576" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="paint500_linear_1501_1259" x1="5.57575" y1="7.30638" x2="30.9394" y2="7.30639" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1, 0, 0, 1, 159.77626, 140.80687)">
+      <stop class="ccustom" stop-color="#64C2DB"/>
+      <stop offset="0.3073" class="ccompli1" stop-color="#7476ED"/>
+      <stop offset="0.6042" class="ccompli1" stop-color="#C994DF"/>
+      <stop offset="1" class="ccompli2" stop-color="#E56F8C"/>
+    </linearGradient>
+  </defs>
+  <path d="M 160.655 168.989 L 160.655 150.201 L 170.049 155.42 L 170.049 163.822 L 177.564 168.049 L 185.079 163.822 L 185.079 155.42 L 194.473 150.201 L 194.473 168.989 L 177.564 178.383 L 160.655 168.989 Z" class="cneutral" fill="#192657"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M 165.352 152.81 L 160.655 150.201 L 177.564 140.807 L 194.473 150.201 L 189.776 152.81 L 189.776 166.64 L 177.564 173.686 L 165.352 166.64 L 165.352 152.81 Z M 189.267 153.093 L 185.079 155.42 L 185.079 155.367 L 177.564 151.14 L 170.049 155.367 L 170.049 155.42 L 165.861 153.093 L 165.861 166.351 L 177.564 173.103 L 189.267 166.351 L 189.267 153.093 Z" fill="url(#paint500_linear_1501_1259)"/>
+</svg>
