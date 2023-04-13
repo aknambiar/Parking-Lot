@@ -19,11 +19,11 @@ class ParkingSystem {
 
         if (this.validateRegn(regn)) {
             response = this.parkinglot.parkVehicle(regn);
+            this.updateRecentCars();
+            this.writeStorage()
         }
 
         this.parkingresponse.parkedAlert(response);
-        this.updateRecentCars();
-        this.writeStorage()
     }
 
     vehicleExitRequest() {
@@ -33,10 +33,10 @@ class ParkingSystem {
 
         if (this.validateRegn(regn)) {
             response = this.parkinglot.unparkVehicle(regn);
+            this.writeStorage()
         }
 
         this.parkingresponse.unparkedAlert(response);
-        this.writeStorage()
     }
 
     validateRegn(Regn) {
