@@ -1,63 +1,41 @@
-class ParkingLot {
+import ParkingLot from "./parkinglot.js";
+import ParkingResponse from "./parkingresponse.js";
+
+class ParkingSystem {
     constructor() {
-        this.recent = new Array(3);
-        this.lots = new Array(10);
+        this.parkVehicleReg = document.querySelector('#parkCarRegn');
+        this.unparkVehicleReg = document.querySelector('#unparkCarRegn');
+
+        this.parkinglot = new ParkingLot();
+        this.parkingresponse = new ParkingResponse();
+
+        this.readStorage();
     }
 
-    parkCar() {
-        const regField = document.querySelector('#parkCarRegn');
-        const result = document.querySelector('#parkResult');
-        let Regn = regField.value;
+    vehicleEntryRequest() {
+        let regn = this.parkVehicleReg.value;
+        this.parkVehicleReg.value = ""; //Clear the field
+        let response = "Invalid";
 
-        //Check if Registration No is valid
-        if (this.validateRegn(Regn)) {
-            regField.value = ""; //Reset input field
-
-            try {
-                //Check for available slot to replace
-                let slot = this.findSlot();
-                this.lots[slot] = Regn;
-                result.textContent = "Parked at lot " + slot;
-
-                //Add car to recent car array
-                if (this.recent.length >= 3) {
-                    this.recent.shift();
-                }
-                this.recent.push(slot);
-
-            } catch (error) {
-                result.textContent = error.message;
-            }
-        }
-        else {
-            result.textContent = "Invalid Registration Number.";
+        if (this.validateRegn(regn)) {
+            response = this.parkinglot.parkVehicle(regn);
         }
 
-        result.classList.remove('d-none');
+        this.parkingresponse.parkedAlert(response);
         this.updateRecentCars();
         this.writeStorage()
     }
 
-    unparkCar() {
-        const regField = document.querySelector('#unparkCarRegn');
-        const result = document.querySelector('#unparkResult');
-        let Regn = regField.value;
-        
-        if (this.validateRegn(Regn)) {
-            try {
-                let position = this.findSlot(Regn);
-                this.lots[position] = undefined;
-                result.textContent = "Unparked from lot " + position;
-            }
-            catch (error) {
-                result.textContent = error.message;
-            }
-        }
-        else {
-            result.textContent = "Invalid Registration Number.";
+    vehicleExitRequest() {
+        let regn = this.unparkVehicleReg.value;
+        this.unparkVehicleReg.value = ""; //Clear the field
+        let response = "Invalid";
+
+        if (this.validateRegn(regn)) {
+            response = this.parkinglot.unparkVehicle(regn);
         }
 
-        result.classList.remove('d-none');
+        this.parkingresponse.unparkedAlert(response);
         this.writeStorage()
     }
 
@@ -67,96 +45,51 @@ class ParkingLot {
     }
 
     getAllCars() {
-        const listHead = document.querySelector('#listcars')
-        listHead.removeChild(document.querySelector('#listcars ul'));
-        const list = document.createElement('ul');
-        list.classList.add('list-group');
-        for (var i = 0; i < this.lots.length; i++) {
-            if (this.lots[i] != undefined) {
-                const listItem = document.createElement('li');
-                listItem.classList.add('list-group-item');
-                const listText = document.createElement('span');
-
-                listText.textContent = `${i.toString()} : ${this.lots[i]}`;
-                listItem.appendChild(listText);
-                list.appendChild(listItem);
-            }
-        } 
-        listHead.appendChild(list);
-    }
-
-    findSlot(Regn = null) {
-        if (Regn) {
-            if (this.lots.indexOf(Regn) == -1) {
-                throw new Error("Car does not exist!");
-            }
-            return this.lots.indexOf(Regn);
-
-        }
-        else {
-            for (var i = 0; i < this.lots.length; i++) {
-                if (this.lots[i] == undefined) {
-                    return i;
-                }
-            }
-            throw new Error("No space left!");
-
-        }
+        let cars = this.parkinglot.getData().lots;
+        this.parkingresponse.showAll(cars);
     }
 
     updateRecentCars() {
-        const listHead = document.querySelector('#recent-list')
-        listHead.removeChild(document.querySelector('.list-group-horizontal-lg'));
-        const list = document.createElement('ul');
-        list.classList.add("list-group","list-group-horizontal-lg");
-
-        for (var i = this.recent.length -1; i >= 0; i--) {
-            if (this.recent[i] != undefined){
-
-                const listItem = document.createElement('li');
-                listItem.classList.add("list-group-item","col-10","col-lg-3","border","border-dark","border-opacity-25","rounded-pill","border-2","mx-4","my-2");
-                const listText = document.createElement('span');
-
-                listText.textContent = `${this.lots[this.recent[i]]} parked at lot ${this.recent[i]}`;
-                listItem.appendChild(listText);
-                list.appendChild(listItem);
-            }
-        }
-        listHead.appendChild(list)
+        let cars = this.parkinglot.getData()
+        this.parkingresponse.showRecent(cars);
     }
 
 
     readStorage() {
-        if (localStorage.getItem("recent")){
-            this.recent = JSON.parse(localStorage.getItem("recent"));
+        const data = new Object();
+        if (localStorage.getItem("recent")) {
+            data.recent = JSON.parse(localStorage.getItem("recent"));
         }
-        if (localStorage.getItem("lots")){
-            this.lots = JSON.parse(localStorage.getItem("lots"));
+        if (localStorage.getItem("lots")) {
+            data.lots = JSON.parse(localStorage.getItem("lots"));
         }
+        this.parkinglot.setData(data)
         this.updateRecentCars();
     }
 
     writeStorage() {
-        localStorage.setItem("recent", JSON.stringify(this.recent));
-        localStorage.setItem("lots", JSON.stringify(this.lots));
+        const data = this.parkinglot.getData()
+        localStorage.setItem("recent", JSON.stringify(data.recent));
+        localStorage.setItem("lots", JSON.stringify(data.lots));
     }
 }
 
-const parkinglot = new ParkingLot();
-parkinglot.readStorage();
 
 
-parkBtn = document.querySelector('#park button')
+
+const parkingsystem = new ParkingSystem();
+
+let parkBtn = document.querySelector('#park button')
 parkBtn.addEventListener('click', () => {
-    parkinglot.parkCar();
+    parkingsystem.vehicleEntryRequest();
 })
 
-parkBtn = document.querySelector('#unpark button')
-parkBtn.addEventListener('click', () => {
-    parkinglot.unparkCar();
+let unparkBtn = document.querySelector('#unpark button')
+unparkBtn.addEventListener('click', () => {
+    parkingsystem.vehicleExitRequest();
 })
 
-listBtn = document.querySelector('[data-bs-target="#listcars"]')
+let listBtn = document.querySelector('[data-bs-target="#allcars"]')
 listBtn.addEventListener('click', () => {
-    parkinglot.getAllCars();
+    parkingsystem.getAllCars();
 })

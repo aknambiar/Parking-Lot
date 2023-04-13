@@ -36,7 +36,7 @@
                             type="button">Unpark</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#listcars"
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#allcars"
                             type="button">All Cars</button>
                     </li>
                 </ul>
@@ -61,7 +61,7 @@
                             <div class="d-inline d-none ms-3" id="unparkResult">none</div>
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="listcars">
+                    <div class="tab-pane fade" id="allcars">
                         <ul class="list-group">
                         </ul>
                     </div>
@@ -77,9 +77,9 @@
                 <div class="col fw-bold">Recent Cars</div>
             </div>
 
-            <div class="row gx-0 gy-2 justify-content-between" id="recent-list">
-                <ul class="list-group list-group-horizontal-lg">
-                    <li class="list-group-item col-3 border border-dark border-opacity-25 rounded-pill border-2 mx-4">
+            <div class="row gx-0 gy-2 justify-content-between">
+                <ul class="list-group list-group-horizontal-lg" id="recent-list">
+                    <li class="list-group-item col-11 border border-dark border-opacity-25 rounded-pill border-2 mx-4">
                         No cars parked recently.
                     </li>
                 </ul>
@@ -88,7 +88,7 @@
 
     </div>
 
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
 
 </body>
 
