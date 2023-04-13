@@ -62,8 +62,6 @@ export default class ParkingResponse {
         if (!cars.recent.length) {return;} //if we don't have any recent cars
         this.recentList.textContent = ''; //delete all child nodes
 
-        console.log(cars.recent)
-
         for (let index in cars.recent) {
             let regn = cars.recent[index];
             let position = cars.lots.indexOf(regn);
