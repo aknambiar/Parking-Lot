@@ -79,17 +79,17 @@ class ParkingSystem {
 
 const parkingsystem = new ParkingSystem();
 
-let parkBtn = document.querySelector('#park button')
+const parkBtn = document.querySelector('#park button')
 parkBtn.addEventListener('click', () => {
     parkingsystem.vehicleEntryRequest();
 })
 
-let unparkBtn = document.querySelector('#unpark button')
+const unparkBtn = document.querySelector('#unpark button')
 unparkBtn.addEventListener('click', () => {
     parkingsystem.vehicleExitRequest();
 })
 
-let listBtn = document.querySelector('[data-bs-target="#allcars"]')
+const listBtn = document.querySelector('[data-bs-target="#allcars"]')
 listBtn.addEventListener('click', () => {
     parkingsystem.getAllCars();
 })
