@@ -56,15 +56,13 @@ class ParkingSystem {
 
 
     readStorage() {
-        const data = new Object();
-        if (localStorage.getItem("recent")) {
+        if (localStorage.getItem("recent") && localStorage.getItem("lots")) {
+            const data = new Object();
             data.recent = JSON.parse(localStorage.getItem("recent"));
+            this.parkinglot.setData(data)
+            this.updateRecentCars();
         }
-        if (localStorage.getItem("lots")) {
-            data.lots = JSON.parse(localStorage.getItem("lots"));
-        }
-        this.parkinglot.setData(data)
-        this.updateRecentCars();
+        
     }
 
     writeStorage() {
