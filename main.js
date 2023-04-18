@@ -1,93 +1,50 @@
-import ParkingLot from "./parkinglot.js";
-import ParkingResponse from "./parkingresponse.js";
+import ParkingSystem from "./ParkingSystem.js";
+import ParkingUI from "./ParkingUI.js";
 
-class ParkingSystem {
+export default class ParkingController {
     constructor() {
-        this.parkVehicleReg = document.querySelector('#parkCarRegn');
-        this.unparkVehicleReg = document.querySelector('#unparkCarRegn');
-
-        this.parkinglot = new ParkingLot();
-        this.parkingresponse = new ParkingResponse();
-
-        this.readStorage();
+        this.parkingui = new ParkingUI();
+        this.parkingsystem = new ParkingSystem();
+        this.listVehicles();
     }
 
-    vehicleEntryRequest() {
-        let regn = this.parkVehicleReg.value;
-        this.parkVehicleReg.value = ""; //Clear the field
-        let response = "Invalid";
-
-        if (this.validateRegn(regn)) {
-            response = this.parkinglot.parkVehicle(regn);
-            this.updateRecentCars();
-            this.writeStorage()
-        }
-
-        this.parkingresponse.parkedAlert(response);
-    }
-
-    vehicleExitRequest() {
-        let regn = this.unparkVehicleReg.value;
-        this.unparkVehicleReg.value = ""; //Clear the field
-        let response = "Invalid";
-
-        if (this.validateRegn(regn)) {
-            response = this.parkinglot.unparkVehicle(regn);
-            this.writeStorage()
-        }
-
-        this.parkingresponse.unparkedAlert(response);
-    }
-
-    validateRegn(Regn) {
-        const re = new RegExp("[A-Za-z]{2}[0-9]{8}");
-        return re.test(Regn);
-    }
-
-    getAllCars() {
-        let cars = this.parkinglot.getData().lots;
-        this.parkingresponse.showAll(cars);
-    }
-
-    updateRecentCars() {
-        let cars = this.parkinglot.getData()
-        this.parkingresponse.showRecent(cars);
-    }
-
-
-    readStorage() {
-        if (localStorage.getItem("recent") && localStorage.getItem("lots")) {
-            const data = new Object();
-            data.recent = JSON.parse(localStorage.getItem("recent"));
-            this.parkinglot.setData(data)
-            this.updateRecentCars();
-        }
+    park() {
+        let regn = this.parkingui.getRegistrationNumber().parkVehicleReg;
         
+        let response = this.parkingsystem.vehicleEntryRequest(regn);
+        this.parkingui.parkedAlert(response);
+
+        this.parkingui.resetFormFields();
+
+        this.listVehicles();
     }
 
-    writeStorage() {
-        const data = this.parkinglot.getData()
-        localStorage.setItem("recent", JSON.stringify(data.recent));
-        localStorage.setItem("lots", JSON.stringify(data.lots));
+    unpark() {
+        let regn = this.parkingui.getRegistrationNumber().unparkVehicleReg;
+
+        let response = this.parkingsystem.vehicleExitRequest(regn);
+        this.parkingui.unparkedAlert(response);
+
+        this.parkingui.resetFormFields();   
+
+        this.listVehicles();
+    }
+
+    listVehicles() {
+        let cars = this.parkingsystem.getAllCars();
+        this.parkingui.showRecent(cars);
+        this.parkingui.showAll(cars);
     }
 }
 
-
-
-
-const parkingsystem = new ParkingSystem();
+const parkingcontroller = new ParkingController();
 
 const parkBtn = document.querySelector('#park button')
 parkBtn.addEventListener('click', () => {
-    parkingsystem.vehicleEntryRequest();
-})
+    parkingcontroller.park();
+});
 
 const unparkBtn = document.querySelector('#unpark button')
 unparkBtn.addEventListener('click', () => {
-    parkingsystem.vehicleExitRequest();
-})
-
-const listBtn = document.querySelector('[data-bs-target="#allcars"]')
-listBtn.addEventListener('click', () => {
-    parkingsystem.getAllCars();
-})
+    parkingcontroller.unpark();
+});
