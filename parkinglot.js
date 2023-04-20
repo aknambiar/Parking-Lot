@@ -9,7 +9,7 @@ export default class ParkingLot {
         this.lots = new Array(10);
     }
 
-    UpdateRecents(slot) {
+    updateRecent(slot) {
         if (this.recent.length >= 3) {
             this.recent.shift();
         }
@@ -17,47 +17,40 @@ export default class ParkingLot {
     }
 
     parkVehicle(regn) {
-        let slot = this.findSlot();
+        let slot = this.findEmptySlot();
 
         if (slot) {
             this.lots[slot] = regn;
-            this.UpdateRecents(regn);
+            this.updateRecent(regn);
             return slot;
         }
         return false;
-
     }
 
     unparkVehicle(regn) {
-        let slot = this.findSlot(regn);
+        let slot = this.findOccupiedSlot(regn);
 
         if (slot) {
             this.lots[slot] = undefined;
             return slot;
         }
-        return false
-
+        return false;
     }
 
-    findSlot(regn = null) {
-        if (regn) {
-            //If we want to find a particular vehicle using registration number
-            if (this.lots.indexOf(regn) == -1) {
-                return false;
+    findEmptySlot(){
+        for (var i = 1; i < this.lots.length; i++) {
+            if (this.lots[i] == undefined) {
+                return i;
             }
-            return this.lots.indexOf(regn);
-
         }
-        else {
-            //Find an empty slot for a vehicle
-            for (var i = 1; i <= this.lots.length; i++) {
-                if (this.lots[i] == undefined) {
-                    return i;
-                }
-            }
+        return false;
+    }
+
+    findOccupiedSlot(regn){
+        if (this.lots.indexOf(regn) == -1) {
             return false;
-
         }
+        return this.lots.indexOf(regn);
     }
 
     getData() {
