@@ -1,0 +1,15 @@
+{
+  "name": "parkinglot",
+  "version": "1.0.0",
+  "description": "A parking system to park cars",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine-local-storage": "^1.1.2"
+  }
+}
