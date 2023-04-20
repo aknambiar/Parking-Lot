@@ -1,4 +1,4 @@
-import ParkingSystem from "./ParkingSystem.js";
+import ParkingSystem from "./ParkingSystem.js"
 import ParkingUI from "./ParkingUI.js";
 
 export default class ParkingController {
