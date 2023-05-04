@@ -1,4 +1,5 @@
 import ParkingSystem from "../ParkingSystem.js";
+import ParkingLot from "../ParkingLot.js";
 import "jasmine-local-storage";
 
 describe("Unit Testing Parking System: ", function() {
@@ -7,6 +8,7 @@ describe("Unit Testing Parking System: ", function() {
 
         beforeEach(function() {
             mockLocalStorage();
+            spyOn(ParkingLot, 'constructor').and.returnValue({})
             psys = new ParkingSystem();
         });
         
