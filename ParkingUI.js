@@ -48,16 +48,21 @@ export default class ParkingUI {
 
         for (var i = 1; i <= cars.lots.length; i++) {
             if (cars.lots[i] != undefined) {
-                const listItem = document.createElement('li');
-                const listText = document.createElement('span');
-
-                listItem.classList.add('list-group-item');
-                listText.textContent = `${i.toString()} : ${cars.lots[i]}`;
-
-                listItem.appendChild(listText);
+                const listItem = this.createListItem(i,cars.lots[i])
                 this.carList.appendChild(listItem);
             }
         }
+    }
+
+    createListItem(index,regn){
+        const listItem = document.createElement('li');
+        const listText = document.createElement('span');
+
+        listItem.classList.add('list-group-item');
+        listText.textContent = `${index.toString()} : ${regn}`;
+
+        listItem.appendChild(listText);
+        return listItem;
     }
 
     showRecent(cars) {
@@ -67,21 +72,26 @@ export default class ParkingUI {
         for (let index in cars.recent) {
             let regn = cars.recent[index];
             let position = cars.lots.indexOf(regn);
-
-            const listItem = document.createElement('li');
-            listItem.classList.add("list-group-item", "col-10", "col-lg-3", "border", "border-dark", "border-opacity-25", "rounded-pill", "border-2", "mx-4", "my-2");
-            const listText = document.createElement('span');
-
-            listText.textContent = `${regn} parked at lot ${position}`;
-            if (position == -1)
-            {
-                listText.textContent = `${regn} already left!`;
-            }
-
-            listItem.appendChild(listText);
+            const listItem = this.createRecentListItem(regn,position)
             this.recentList.appendChild(listItem);
         }
     }
+
+    createRecentListItem(regn,position){
+        const listItem = document.createElement('li');
+        listItem.classList.add("list-group-item", "col-10", "col-lg-3", "border", "border-dark", "border-opacity-25", "rounded-pill", "border-2", "mx-4", "my-2");
+        const listText = document.createElement('span');
+        listText.textContent = `${regn} parked at lot ${position}`;
+        
+        if (position == -1)
+        {
+            listText.textContent = `${regn} already left!`;
+        }
+
+        listItem.appendChild(listText);
+        return listItem
+    }
+
 
     getRegistrationNumber() {
         return {
