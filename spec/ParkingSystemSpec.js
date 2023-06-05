@@ -57,7 +57,7 @@ describe("Unit Testing Parking System: ", function() {
 
         it(" should provide a proper response if number is valid",function(){
             spyOn(psys,"validateRegn").and.returnValue(true);
-            spyOn(psys.parkinglot,"parkVehicle").and.returnValue("Car Parked");
+            spyOn(psys.parkingLot,"parkVehicle").and.returnValue("Car Parked");
 
             let result = psys.vehicleEntryRequest();
             
@@ -85,7 +85,7 @@ describe("Unit Testing Parking System: ", function() {
 
         it(" should provide a proper response if number is valid",function(){
             spyOn(psys,"validateRegn").and.returnValue(true);
-            spyOn(psys.parkinglot,"parkVehicle").and.returnValue("Car Unparked");
+            spyOn(psys.parkingLot,"parkVehicle").and.returnValue("Car Unparked");
 
             let result = psys.vehicleExitRequest();
             
@@ -105,7 +105,7 @@ describe("Unit Testing Parking System: ", function() {
 
         it(" should return some data",function(){
             let carObject = {a:1,b:2}
-            spyOn(psys.parkinglot,"getData").and.returnValue(carObject);
+            spyOn(psys.parkingLot,"getData").and.returnValue(carObject);
 
             let result = psys.getAllCars();
             

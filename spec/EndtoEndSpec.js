@@ -20,7 +20,7 @@ describe("End to End Test",function(){
 
     it("unparks a car",function(){
         let registration = "CD82756434";
-        psys.parkinglot.lots = [,"AB87639475","CD82756434","EF87264532"];
+        psys.parkingLot.lots = [,"AB87639475","CD82756434","EF87264532"];
 
         let result = psys.vehicleExitRequest(registration);
 
@@ -29,8 +29,8 @@ describe("End to End Test",function(){
 
     it("fails to park a car when no slots are available",function(){
         let registration = "AB12345678";
-        psys.parkinglot.lots = [,"AB87639475","CD82756434","EF87264532"];
-        psys.parkinglot.lots.length = 4;
+        psys.parkingLot.lots = [,"AB87639475","CD82756434","EF87264532"];
+        psys.parkingLot.lots.length = 4;
 
         let result = psys.vehicleEntryRequest(registration);
 
@@ -39,7 +39,7 @@ describe("End to End Test",function(){
 
     it("fails to unpark a car when it does not exist",function(){
         let registration = "AB12345678";
-        psys.parkinglot.lots = [,"AB87639475","CD82756434","EF87264532"];
+        psys.parkingLot.lots = [,"AB87639475","CD82756434","EF87264532"];
 
         let result = psys.vehicleExitRequest(registration);
 

@@ -3,48 +3,48 @@ import ParkingUI from "./ParkingUI.js";
 
 export default class ParkingController {
     constructor() {
-        this.parkingui = new ParkingUI();
-        this.parkingsystem = new ParkingSystem();
+        this.parkingUI = new ParkingUI();
+        this.parkingSystem = new ParkingSystem();
         this.listVehicles();
     }
 
     park() {
-        let regn = this.parkingui.getRegistrationNumber().parkVehicleReg;
+        let regn = this.parkingUI.getRegistrationNumber().parkVehicleReg;
         
-        let response = this.parkingsystem.vehicleEntryRequest(regn);
-        this.parkingui.parkedAlert(response);
+        let response = this.parkingSystem.vehicleEntryRequest(regn);
+        this.parkingUI.parkedAlert(response);
 
-        this.parkingui.resetFormFields();
+        this.parkingUI.resetFormFields();
 
         this.listVehicles();
     }
 
     unpark() {
-        let regn = this.parkingui.getRegistrationNumber().unparkVehicleReg;
+        let regn = this.parkingUI.getRegistrationNumber().unparkVehicleReg;
 
-        let response = this.parkingsystem.vehicleExitRequest(regn);
-        this.parkingui.unparkedAlert(response);
+        let response = this.parkingSystem.vehicleExitRequest(regn);
+        this.parkingUI.unparkedAlert(response);
 
-        this.parkingui.resetFormFields();   
+        this.parkingUI.resetFormFields();   
 
         this.listVehicles();
     }
 
     listVehicles() {
-        let cars = this.parkingsystem.getAllCars();
-        this.parkingui.showRecent(cars);
-        this.parkingui.showAll(cars);
+        let cars = this.parkingSystem.getAllCars();
+        this.parkingUI.showRecent(cars);
+        this.parkingUI.showAll(cars);
     }
 }
 
-const parkingcontroller = new ParkingController();
+const parkingController = new ParkingController();
 
 const parkBtn = document.querySelector('#park button')
 parkBtn.addEventListener('click', () => {
-    parkingcontroller.park();
+    parkingController.park();
 });
 
 const unparkBtn = document.querySelector('#unpark button')
 unparkBtn.addEventListener('click', () => {
-    parkingcontroller.unpark();
+    parkingController.unpark();
 });

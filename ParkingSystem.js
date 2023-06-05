@@ -2,7 +2,7 @@ import ParkingLot from "./ParkingLot.js";
 
 export default class ParkingSystem {
     constructor() {
-        this.parkinglot = new ParkingLot();
+        this.parkingLot = new ParkingLot();
         this.readStorage();
     }
 
@@ -10,7 +10,7 @@ export default class ParkingSystem {
         let response = "Invalid";
 
         if (this.validateRegn(regn)) {
-            response = this.parkinglot.parkVehicle(regn);
+            response = this.parkingLot.parkVehicle(regn);
             this.writeStorage();
         }
 
@@ -21,21 +21,21 @@ export default class ParkingSystem {
         let response = "Invalid";
 
         if (this.validateRegn(regn)) {
-            response = this.parkinglot.unparkVehicle(regn);
+            response = this.parkingLot.unparkVehicle(regn);
             this.writeStorage();
         }
 
         return response;
     }
 
-    validateRegn(Regn) {
-        if (Regn.length > 10) { return false;}
+    validateRegn(regn) {
+        if (regn.length > 10) { return false;}
         const re = new RegExp("[A-Za-z]{2}[0-9]{8}");
-        return re.test(Regn);
+        return re.test(regn);
     }
 
     getAllCars() {
-        return this.parkinglot.getData();
+        return this.parkingLot.getData();
     }
 
     readStorage() {
@@ -43,12 +43,12 @@ export default class ParkingSystem {
             const data = new Object();
             data.recent = JSON.parse(localStorage.getItem("recent"));
             data.lots = JSON.parse(localStorage.getItem("lots"));
-            this.parkinglot.setData(data);
+            this.parkingLot.setData(data);
         }
     }
 
     writeStorage() {
-        const data = this.parkinglot.getData()
+        const data = this.parkingLot.getData()
         localStorage.setItem("recent", JSON.stringify(data.recent));
         localStorage.setItem("lots", JSON.stringify(data.lots));
     }
