@@ -7,7 +7,7 @@ export default class ParkingSystem {
     }
 
     vehicleEntryRequest(regn) {
-        let response = "Invalid";
+        let response = "invalid";
 
         if (this.validateRegn(regn)) {
             response = this.parkingLot.parkVehicle(regn);
@@ -18,7 +18,7 @@ export default class ParkingSystem {
     }
 
     vehicleExitRequest(regn) {
-        let response = "Invalid";
+        let response = "invalid";
 
         if (this.validateRegn(regn)) {
             response = this.parkingLot.unparkVehicle(regn);

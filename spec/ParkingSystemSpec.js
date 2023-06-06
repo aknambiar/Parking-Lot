@@ -52,7 +52,7 @@ describe("Unit Testing Parking System: ", function() {
 
             let result = psys.vehicleEntryRequest();
             
-            expect(result).toBe("Invalid");
+            expect(result).toBe("invalid");
         });
 
         it(" should provide a proper response if number is valid",function(){
@@ -61,7 +61,7 @@ describe("Unit Testing Parking System: ", function() {
 
             let result = psys.vehicleEntryRequest();
             
-            expect(result).not.toBe("Invalid");
+            expect(result).not.toBe("invalid");
         });
     });
 
@@ -80,7 +80,7 @@ describe("Unit Testing Parking System: ", function() {
 
             let result = psys.vehicleExitRequest();
             
-            expect(result).toBe("Invalid");
+            expect(result).toBe("invalid");
         });
 
         it(" should provide a proper response if number is valid",function(){

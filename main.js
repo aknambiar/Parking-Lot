@@ -12,7 +12,7 @@ export default class ParkingController {
         let regn = this.parkingUI.getRegistrationNumber().parkVehicleReg;
         
         let response = this.parkingSystem.vehicleEntryRequest(regn);
-        this.parkingUI.parkedAlert(response);
+        this.parkingUI.alertMessage(response,"park");
 
         this.parkingUI.resetFormFields();
 
@@ -23,7 +23,7 @@ export default class ParkingController {
         let regn = this.parkingUI.getRegistrationNumber().unparkVehicleReg;
 
         let response = this.parkingSystem.vehicleExitRequest(regn);
-        this.parkingUI.unparkedAlert(response);
+        this.parkingUI.alertMessage(response,"unpark");
 
         this.parkingUI.resetFormFields();   
 

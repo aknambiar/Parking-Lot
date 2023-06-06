@@ -4,15 +4,15 @@
 //----
 
 export default class ParkingLot {
+    static MAX_RECENT = 3;
+    static MAX_LOTS = 10;
     constructor() {
-        this.MAX_RECENT = 3;
-        this.MAX_LOTS = 10;
         this.recent = new Array();
-        this.lots = new Array(this.MAX_LOTS);
+        this.lots = new Array(ParkingLot.MAX_LOTS);
     }
 
     updateRecent(slot) {
-        if (this.recent.length >= this.MAX_RECENT) {
+        if (this.recent.length >= ParkingLot.MAX_RECENT) {
             this.recent.shift();
         }
         this.recent.push(slot);

@@ -52,6 +52,6 @@ describe("End to End Test",function(){
         let parkresult = psys.vehicleEntryRequest(registration);
         let unparkresult = psys.vehicleExitRequest(registration);
 
-        expect(parkresult ==  "Invalid" && unparkresult ==  "Invalid").toBeTruthy();
+        expect(parkresult ==  "invalid" && unparkresult ==  "invalid").toBeTruthy();
     })
 })

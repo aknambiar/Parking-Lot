@@ -4,9 +4,17 @@
 //----
 
 export default class ParkingUI {
+    static responseList = {
+        "invalid" : "Invalid Registration Number",
+        "park_success" : "Parked at lot ",
+        "park_failure" : "No space left!",
+        "unpark_success" : "Unparked from lot ",
+        "unpark_failure" : "Car not found!",
+    }
+
     constructor() {
-        this.parkedMessage = document.querySelector('#parkResult');
-        this.unparkedMessage = document.querySelector('#unparkResult');
+        this.parkMessage = document.querySelector('#parkResult');
+        this.unparkMessage = document.querySelector('#unparkResult');
 
         this.parkVehicleReg = document.querySelector('#parkCarRegn');
         this.unparkVehicleReg = document.querySelector('#unparkCarRegn');
@@ -15,32 +23,18 @@ export default class ParkingUI {
         this.recentList = document.querySelector('#recent-list');
     }
 
-    parkedAlert(response) {
-        if (response == "Invalid") {
-            this.parkedMessage.textContent = `Invalid Registration Number`;
+    alertMessage(response,action) {
+        if (response == "invalid") {
+            this[action + "Message"].textContent = ParkingUI.responseList[response];
         }
         else if (response) {
-            this.parkedMessage.textContent = `Parked at lot ${response}`;
+            this[action + "Message"].textContent = ParkingUI.responseList[action + "_success"] + response;
         }
         else {
-            this.parkedMessage.textContent = "No space left!";
+            this[action + "Message"].textContent = ParkingUI.responseList[action + "_failure"];
         }
 
-        this.parkedMessage.classList.remove('d-none');  //Unhide the notification div
-    }
-
-    unparkedAlert(response) {
-        if (response == "Invalid") {
-            this.unparkedMessage.textContent = `Invalid Registration Number`;
-        }
-        else if (response) {
-            this.unparkedMessage.textContent = `Unparked from lot ${response}`;
-        }
-        else {
-            this.unparkedMessage.textContent = "Car not found!";
-        }
-
-        this.unparkedMessage.classList.remove('d-none');  //Unhide the notification div
+        this[action + "Message"].classList.remove('d-none');
     }
 
     showAll(cars){
