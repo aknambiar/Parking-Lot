@@ -5,12 +5,14 @@
 
 export default class ParkingLot {
     constructor() {
+        this.MAX_RECENT = 3;
+        this.MAX_LOTS = 10;
         this.recent = new Array();
-        this.lots = new Array(10);
+        this.lots = new Array(this.MAX_LOTS);
     }
 
     updateRecent(slot) {
-        if (this.recent.length >= 3) {
+        if (this.recent.length >= this.MAX_RECENT) {
             this.recent.shift();
         }
         this.recent.push(slot);
@@ -22,9 +24,8 @@ export default class ParkingLot {
         if (slot) {
             this.lots[slot] = regn;
             this.updateRecent(regn);
-            return slot;
         }
-        return false;
+        return slot;
     }
 
     unparkVehicle(regn) {
@@ -32,9 +33,8 @@ export default class ParkingLot {
 
         if (slot) {
             this.lots[slot] = undefined;
-            return slot;
         }
-        return false;
+        return slot;
     }
 
     findEmptySlot(){
